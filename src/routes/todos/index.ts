@@ -6,7 +6,7 @@ import type {
   IDeleteTodoBody,
   IGetAllTodosBody,
   IUpdateTodoBody,
-} from '../../interfaces/routers/TodoRquests';
+} from '../../interfaces/routers/TodoRequests';
 
 const TodosRouter = Router();
 

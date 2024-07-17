@@ -26,9 +26,7 @@ if (process.env.NODE_ENV === 'dev') {
     }),
   );
   console.log(
-    `Swagger launched on at https://localhost:${
-      process.env.PORT ?? ''
-    }/swagger`,
+    `Swagger launched on at http://localhost:${process.env.PORT ?? ''}/swagger`,
   );
 }
 

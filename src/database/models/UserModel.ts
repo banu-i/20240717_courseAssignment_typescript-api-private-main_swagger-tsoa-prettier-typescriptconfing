@@ -5,8 +5,7 @@ import todoSequelize from '../setup/database';
 import { UserAttributes } from '../../interfaces/models/UserAttributes';
 
 // Optional fields for model creation
-interface UserCreationAttributes
-  extends Optional<UserAttributes, 'id'> {}
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 // Define the Todo model class
 class UserModel

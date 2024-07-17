@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Router } from 'express';
 import UserController from './UserController';
-import { IGetUserByIdRequest } from '../../interfaces/routers/UserRequests';
+import { StatusCodes } from 'http-status-codes';
 
 // Template - StatsRouter.ts:
 // import StatisticsController, {
@@ -13,9 +13,11 @@ const UserRouter = Router();
 /**
  * GET
  */
-UserRouter.get('/userId', (req) => {
+UserRouter.get('/user/byId', async (req, res) => {
   const controller = new UserController();
-  return controller.getUserById(req, req.params as IGetUserByIdRequest);
+  const userId = parseInt(req.query.id as string);
+  const result = await controller.getUserById(userId);
+  res.status(StatusCodes.OK).json(result);
 });
 
 export default UserRouter;

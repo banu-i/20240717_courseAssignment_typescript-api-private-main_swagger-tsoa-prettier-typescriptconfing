@@ -7,29 +7,38 @@ import {
   Request,
   SuccessResponse,
   Tags,
+  Query,
 } from '@tsoa/runtime';
 import { Request as ExpressRequest } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import IGetUserByIdRequest from '../../interfaces/routers/UserRequests';
+// import IGetUserByIdRequest from '../../interfaces/routers/UserRequests';
 import UserModel from '../../database/models/UserModel';
 
-//Template - StatsController.ts:
-// export interface ISetDeviceInfoBody {
-//   userId: number;
-//   version: string | null;
-//   baseOs: 'ios' | 'android' | 'windows' | 'web';
-// }
-// export type ISetDeviceInfoResponse = boolean;
+import { UserAttributes } from '../../interfaces/models/UserAttributes';
+
+export interface ISetUserBody {
+  userId: number;
+  id?: number;
+  name: string;
+  email: string;
+  // password: string;
+  // profileImgUrl?: string;
+}
+export type ISetDeviceInfoResponse = boolean;
 
 @Route('v1/users')
 @Tags('Users')
 class UserController extends Controller {
-  @Get('/userId')
+  @Get('/user')
   @SuccessResponse(StatusCodes.OK)
-  public async getUserById(@Request() req: ExpressRequest, @Request() params: IGetUserByIdRequest): Promise<UserModel | null> {
-    const { userId } = params;
-    const user = await UserModel.findByPk(userId);
-    return user;
+  public async getUserById(
+    @Query() id: number,
+  ): Promise<UserAttributes | null | Error> {
+    if (id) {
+      const user = await UserModel.findOne({ where: { id } });
+      return user;
+    }
+    return null;
   }
 }
 
